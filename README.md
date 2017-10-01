@@ -24,6 +24,12 @@ in a simple weather app that lists current weather information at some locations
 3. Get a free API key from [OpenWeatherMap](http://openweathermap.org).
 4. Open `OpenWeatherAPI.swift` and fill `apiKey = ""` with your own API key.
 
+## TODO
+* Swift 4
+* ViperMcFlurry or LightRoute v2
+* Facades with RxSwift
+* RxRealm
+
 ## License
 
 MIT license. See the `LICENSE` file for details.
