@@ -1,0 +1,7 @@
+.DS_Store
+.idea/
+Podfile.lock
+Pods/
+Templates/
+weather.xcodeproj/project.xcworkspace/xcuserdata/
+weather.xcworkspace/
