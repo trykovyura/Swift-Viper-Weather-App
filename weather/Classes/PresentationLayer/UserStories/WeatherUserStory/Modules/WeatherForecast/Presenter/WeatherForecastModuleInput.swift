@@ -6,7 +6,10 @@
 //  Copyright © 2017 trykov. All rights reserved.
 //
 
-protocol WeatherForecastModuleInput: class {
+import ViperMcFlurry
+
+protocol WeatherForecastModuleInput: class, RamblerViperModuleInput {
 
     func configure(with: CityPlainObject)
+
 }

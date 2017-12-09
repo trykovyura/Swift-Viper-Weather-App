@@ -31,5 +31,6 @@ class WeatherForecastConfigurator {
 
         presenter.interactor = interactor
         viewController.output = presenter
+        viewController.moduleInput = presenter
     }
 }

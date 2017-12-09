@@ -6,11 +6,15 @@
 //  Copyright © 2017 trykov. All rights reserved.
 //
 
-class WeatherForecastPresenter: WeatherForecastModuleInput, WeatherForecastViewOutput, WeatherForecastInteractorOutput {
+import Foundation
+import ViperMcFlurry
+
+class WeatherForecastPresenter: NSObject, WeatherForecastModuleInput, WeatherForecastViewOutput, WeatherForecastInteractorOutput {
 
     weak var view: WeatherForecastViewInput!
     var interactor: WeatherForecastInteractorInput!
     var router: WeatherForecastRouterInput!
+    weak var moduleOutput: WeatherForecastModuleOutput?
 
     var city: CityPlainObject!
 
@@ -35,5 +39,11 @@ class WeatherForecastPresenter: WeatherForecastModuleInput, WeatherForecastViewO
 
     func didObtainForecast(_ forecast: [ForecastPlainObject]) {
         view.configureWithItems(forecast)
+    }
+}
+
+extension WeatherForecastPresenter {
+    func setModuleOutput(_ moduleOutput: RamblerViperModuleOutput!) {
+        self.moduleOutput = moduleOutput as? WeatherForecastModuleOutput
     }
 }
