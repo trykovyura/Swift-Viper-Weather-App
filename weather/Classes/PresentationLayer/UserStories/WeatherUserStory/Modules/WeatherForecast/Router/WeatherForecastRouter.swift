@@ -5,8 +5,8 @@
 //  Created by trykov on 26/08/2017.
 //  Copyright © 2017 trykov. All rights reserved.
 //
-import LightRoute
+import ViperMcFlurry
 
 class WeatherForecastRouter: WeatherForecastRouterInput {
-    weak var transitionHandler: TransitionHandler!
+    weak var transitionHandler: RamblerViperModuleTransitionHandlerProtocol!
 }

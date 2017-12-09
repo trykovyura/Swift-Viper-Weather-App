@@ -16,6 +16,7 @@ let provider = RxMoyaProvider<OpenWeatherAPI>(plugins: [NetworkLoggerPlugin()])
 
 extension OpenWeatherAPI: TargetType {
     public var baseURL: URL {
+        assert(!OpenWeatherAPI.apiKey.isEmpty)
         return URL(string: "http://api.openweathermap.org/data/2.5")!
     }
     public var path: String {
