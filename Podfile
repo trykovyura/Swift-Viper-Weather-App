@@ -9,7 +9,7 @@ target 'weather' do
 
   # Utils
   pod 'Swinject', '~>2.1.1'
-  pod 'LightRoute', '~>1.0.6'
+  pod 'ViperMcFlurry', '~>1.5.2'
 
   # UI
   pod 'TableKit', '~>2.5.0'

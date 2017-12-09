@@ -26,7 +26,7 @@ in a simple weather app that lists current weather information at some locations
 
 ## TODO
 * Swift 4
-* ViperMcFlurry or LightRoute v2
+* ~~ViperMcFlurry or LightRoute v2~~
 * Facades with RxSwift
 * RxRealm
 
