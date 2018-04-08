@@ -42,10 +42,10 @@ class WeatherFeedViewController: UIViewController, WeatherFeedViewInput, UISearc
 
     private func configureTableView() {
         tableDirector = TableDirector(tableView: tableView)
-        self.tableView.es_addPullToRefresh {
+        self.tableView.es.addPullToRefresh {
             [weak self] in
             self?.output.didTriggerPullToRefresh()
-            self?.tableView.es_stopPullToRefresh(ignoreDate: false, ignoreFooter: false)
+            self?.tableView.es.stopPullToRefresh(ignoreDate: false, ignoreFooter: false)
         }
     }
 

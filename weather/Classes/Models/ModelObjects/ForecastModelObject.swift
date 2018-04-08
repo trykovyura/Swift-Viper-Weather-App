@@ -7,8 +7,8 @@ import Foundation
 import RealmSwift
 
 class ForecastModelObject: Object {
-    dynamic var name = ""
-    dynamic var time = 0
-    dynamic var day = ""
-    dynamic var created = NSDate()
+    @objc dynamic var name = ""
+    @objc dynamic var time = 0
+    @objc dynamic var day = ""
+    @objc dynamic var created = NSDate()
 }

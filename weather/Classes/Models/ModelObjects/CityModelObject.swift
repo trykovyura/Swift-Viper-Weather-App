@@ -10,10 +10,10 @@ class CityModelObject: Object, RealmEntity {
 
     typealias EntityType = CityPlainObject
 
-    dynamic var id = 0
-    dynamic var name = ""
-    dynamic var weather = ""
-    dynamic var created = Date()
+    @objc dynamic var id = 0
+    @objc dynamic var name = ""
+    @objc dynamic var weather = ""
+    @objc dynamic var created = Date()
 
     convenience required init(entity: EntityType) {
         self.init()
