@@ -27,10 +27,11 @@ class WeatherNetworkServiceImpl: WeatherNetworkService {
     let disposeBag = DisposeBag()
 
     func fetchCities(_ completion: @escaping ([CityPlainObject]?) -> ()) {
-        provider.request(.cities(WeatherNetworkServiceImpl.cityIds))
+        provider.rx.request(.cities(WeatherNetworkServiceImpl.cityIds))
                 .debug()
                 .filterSuccessfulStatusCodes()
-                .mapArray(type: CityPlainObject.self, keyPath: "list")
+                .asObservable()
+                .map(to: [CityPlainObject].self, keyPath: "list")
                 .observeOn(MainScheduler.instance)
                 .subscribe(
                         onNext: { cities in
@@ -39,14 +40,15 @@ class WeatherNetworkServiceImpl: WeatherNetworkService {
                         onError: { error in
                             print(":(")
                         })
-                .addDisposableTo(disposeBag)
+                .disposed(by: disposeBag)
     }
 
     func fetchForecast(_ city: CityPlainObject, completion: @escaping ([ForecastPlainObject]?) -> ()) {
-        provider.request(.forecast(city.id))
+        provider.rx.request(.forecast(city.id))
                 .debug()
                 .filterSuccessfulStatusCodes()
-                .mapArray(type: ForecastPlainObject.self, keyPath: "list")
+                .asObservable()
+                .map(to: [ForecastPlainObject].self, keyPath: "list")
                 .observeOn(MainScheduler.instance)
                 .subscribe(
                         onNext: { forecasts in
@@ -55,7 +57,7 @@ class WeatherNetworkServiceImpl: WeatherNetworkService {
                         onError: { error in
                             print(":(")
                         })
-                .addDisposableTo(disposeBag)
+                .disposed(by: disposeBag)
     }
 
 }

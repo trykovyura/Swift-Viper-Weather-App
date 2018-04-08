@@ -8,19 +8,19 @@ target 'weather' do
   # Pods for weather
 
   # Utils
-  pod 'Swinject', '~>2.1.1'
+  pod 'Swinject', '~>2.4.0'
   pod 'ViperMcFlurry', '~>1.5.2'
 
   # UI
-  pod 'TableKit', '~>2.5.0'
-  pod "ESPullToRefresh", '~>2.6'
+  pod 'TableKit', '~>2.6.0'
+  pod "ESPullToRefresh", '~>2.7'
 
   # Network
-  pod 'Moya/RxSwift', '~>8.0.5'
-  pod 'Moya-ModelMapper/RxSwift', '~>4.1.1'
+  pod 'Moya/RxSwift', '~>11.0.2'
+  pod 'Moya-ModelMapper/RxSwift', '~>7.0.2'
 
   # Storage
-  pod 'RealmSwift'
+  pod 'RealmSwift', '~>3.3.2'
 
 end
 

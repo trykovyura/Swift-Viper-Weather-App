@@ -12,48 +12,51 @@ public enum OpenWeatherAPI {
     case forecast(Int)
 }
 
-let provider = RxMoyaProvider<OpenWeatherAPI>(plugins: [NetworkLoggerPlugin()])
+let provider = MoyaProvider<OpenWeatherAPI>(plugins: [NetworkLoggerPlugin()])
 
 extension OpenWeatherAPI: TargetType {
+
+    public var headers: [String: String]? {
+        return nil
+    }
+
     public var baseURL: URL {
         assert(!OpenWeatherAPI.apiKey.isEmpty)
         return URL(string: "http://api.openweathermap.org/data/2.5")!
     }
+
     public var path: String {
         switch self {
         case .cities(_):
             return "/group"
-        case .forecast(let cityId):
+        case .forecast(_):
             return "/forecast"
         }
     }
+
     public var method: Moya.Method {
         return .get
     }
-    public var parameters: [String: Any]? {
+
+    public var task: Task {
         switch self {
         case .cities(let cityIds):
-            return [
+            let params = [
                 "APPID": OpenWeatherAPI.apiKey,
                 "id": cityIds.map {
                     String($0)
                 }.joined(separator: ",")
             ]
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         case .forecast(let cityId):
-            return [
+            let params: [String : Any] = [
                 "id": cityId,
                 "APPID": OpenWeatherAPI.apiKey
-            ]
-        default:
-            return nil
+                ]
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }
     }
-    public var parameterEncoding: ParameterEncoding {
-        return URLEncoding.default
-    }
-    public var task: Task {
-        return .request
-    }
+
     public var validate: Bool {
         return false
     }

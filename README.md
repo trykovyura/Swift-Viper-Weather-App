@@ -25,11 +25,12 @@ in a simple weather app that lists current weather information at some locations
 4. Open `OpenWeatherAPI.swift` and fill `apiKey = ""` with your own API key.
 
 ## TODO
-* Swift 4
+* ~~Swift 4~~
 * ~~ViperMcFlurry or LightRoute v2~~
 * Facades with RxSwift
 * RxRealm
 * ~~Acknowledgements~~
+* SwiftLint
 
 ## License
 
