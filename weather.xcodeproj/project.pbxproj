@@ -15,6 +15,7 @@
 		290F22D81F50A23A0095859C /* WeatherFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 290F22D71F50A23A0095859C /* WeatherFeedCell.xib */; };
 		290F22DA1F50A2600095859C /* WeatherFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290F22D91F50A2600095859C /* WeatherFeedCell.swift */; };
 		290F22DC1F52C8150095859C /* WeatherForecastCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 290F22DB1F52C8150095859C /* WeatherForecastCell.xib */; };
+		291BF5432027281900ED52F3 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 291BF5422027281900ED52F3 /* Settings.bundle */; };
 		2955A1D71F803762001CE98A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2955A1D31F803761001CE98A /* LaunchScreen.storyboard */; };
 		2955A1D81F803762001CE98A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2955A1D51F803762001CE98A /* Main.storyboard */; };
 		5AF2159888545CC26E9516B2 /* WeatherFeedViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1528F1D66D059E80CFB416F0 /* WeatherFeedViewOutput.swift */; };
@@ -70,6 +71,7 @@
 		290F22D71F50A23A0095859C /* WeatherFeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherFeedCell.xib; sourceTree = "<group>"; };
 		290F22D91F50A2600095859C /* WeatherFeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherFeedCell.swift; sourceTree = "<group>"; };
 		290F22DB1F52C8150095859C /* WeatherForecastCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherForecastCell.xib; sourceTree = "<group>"; };
+		291BF5422027281900ED52F3 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		2955A1D41F803761001CE98A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2955A1D61F803762001CE98A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		42447F110672477A212DE942 /* WeatherForecastModuleInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeatherForecastModuleInput.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 		290F22B71F4F3FA50095859C = {
 			isa = PBXGroup;
 			children = (
+				291BF5422027281900ED52F3 /* Settings.bundle */,
 				290F22C21F4F3FA50095859C /* weather */,
 				290F22C11F4F3FA50095859C /* Products */,
 				EDCCCFAA182DD33CF6EAC42A /* Pods */,
@@ -725,6 +728,7 @@
 				2955A1D81F803762001CE98A /* Main.storyboard in Resources */,
 				2955A1D71F803762001CE98A /* LaunchScreen.storyboard in Resources */,
 				B18B362CEAE426AE3A1A7784 /* Assets.xcassets in Resources */,
+				291BF5432027281900ED52F3 /* Settings.bundle in Resources */,
 				290F22DC1F52C8150095859C /* WeatherForecastCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -753,13 +757,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-weather-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D891D40D73FAA101185984F3 /* [CP] Embed Pods Frameworks */ = {
@@ -768,9 +775,34 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-weather/Pods-weather-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/ESPullToRefresh/ESPullToRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/ModelMapper/Mapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya-ModelMapper/Moya_ModelMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
+				"${BUILT_PRODUCTS_DIR}/TableKit/TableKit.framework",
+				"${BUILT_PRODUCTS_DIR}/ViperMcFlurry/ViperMcFlurry.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESPullToRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya_ModelMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TableKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurry.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -955,10 +987,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7ZU2JEECEY;
 				INFOPLIST_FILE = "$(SRCROOT)/weather/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.trykov.weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -969,10 +1002,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7ZU2JEECEY;
 				INFOPLIST_FILE = "$(SRCROOT)/weather/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.trykov.weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
