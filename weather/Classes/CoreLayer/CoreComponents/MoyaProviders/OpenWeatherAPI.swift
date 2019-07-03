@@ -12,8 +12,6 @@ public enum OpenWeatherAPI {
     case forecast(Int)
 }
 
-let provider = MoyaProvider<OpenWeatherAPI>(plugins: [NetworkLoggerPlugin()])
-
 extension OpenWeatherAPI: TargetType {
 
     public var headers: [String: String]? {

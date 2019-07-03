@@ -22,6 +22,7 @@
 		603631290F7ABAADF1C89FB6 /* WeatherForecastInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721123B1EBE0ADC5A0A637F /* WeatherForecastInteractorInput.swift */; };
 		721E04F289C3B95B934E3CAE /* WeatherForecastInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7DD3E92B094C929072F78E /* WeatherForecastInteractor.swift */; };
 		73F8285D15A7912C5D7E17E5 /* WeatherFeedViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6FE83AAB51E37F3D44E7D0 /* WeatherFeedViewInput.swift */; };
+		7FDB2C1267E191B8FCD78F22 /* WeatherPlainObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB2FB3F34A0AD6256ADFF9 /* WeatherPlainObject.swift */; };
 		82522C2564E4DD1F303EB089 /* WeatherFeedRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D52C104DA56AE0744346B42 /* WeatherFeedRouter.swift */; };
 		8E060D8B4A314320BD0A42AF /* WeatherFeedInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1BC05C4FBB6B9CDBB44E87 /* WeatherFeedInteractorOutput.swift */; };
 		934D2098E7C16FC5134D6BED /* WeatherForecastViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB825150FD6BE9248B404D1F /* WeatherForecastViewInput.swift */; };
@@ -85,6 +86,7 @@
 		7700D442F5F5070EBEB44E55 /* WeatherFeedRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeatherFeedRouterInput.swift; sourceTree = "<group>"; };
 		7721123B1EBE0ADC5A0A637F /* WeatherForecastInteractorInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeatherForecastInteractorInput.swift; sourceTree = "<group>"; };
 		7B1AC75AA61FCB71D57A2FF6 /* WeatherFeedModuleInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeatherFeedModuleInput.swift; sourceTree = "<group>"; };
+		7FDB2FB3F34A0AD6256ADFF9 /* WeatherPlainObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherPlainObject.swift; sourceTree = "<group>"; };
 		8065603C115123F73B4DDA2F /* WeatherForecastInteractorOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeatherForecastInteractorOutput.swift; sourceTree = "<group>"; };
 		8444C77CFF85DBB41E85B222 /* WeatherForecastRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeatherForecastRouterInput.swift; sourceTree = "<group>"; };
 		B18B305B4998C30A3441E8D1 /* WeatherForecastCellObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherForecastCellObject.swift; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 			children = (
 				B18B37AD59CB5AFBB0710C7F /* ForecastPlainObject.swift */,
 				B18B36F76209F57D40A4F46D /* CityPlainObject.swift */,
+				7FDB2FB3F34A0AD6256ADFF9 /* WeatherPlainObject.swift */,
 			);
 			path = PlainObjects;
 			sourceTree = "<group>";
@@ -782,9 +785,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-weather/Pods-weather-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ESPullToRefresh/ESPullToRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/ModelMapper/Mapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
-				"${BUILT_PRODUCTS_DIR}/Moya-ModelMapper/Moya_ModelMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -797,9 +798,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESPullToRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya_ModelMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -866,6 +865,7 @@
 				B18B326A1CCC680155DA5ED2 /* WeatherService.swift in Sources */,
 				B18B3A4C3F975A5691CD82AC /* WeatherFacade.swift in Sources */,
 				B18B339FDEA916813226BE35 /* WeatherForecastModuleOutput.swift in Sources */,
+				7FDB2C1267E191B8FCD78F22 /* WeatherPlainObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

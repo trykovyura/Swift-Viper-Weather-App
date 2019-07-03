@@ -5,7 +5,6 @@
 
 import Foundation
 import Moya
-import Moya_ModelMapper
 import RxSwift
 
 public protocol WeatherNetworkService {
@@ -25,12 +24,14 @@ class WeatherNetworkServiceImpl: WeatherNetworkService {
 
     let disposeBag = DisposeBag()
 
+    let provider = MoyaProvider<OpenWeatherAPI>(plugins: [NetworkLoggerPlugin(verbose: true)])
+
     func fetchCities(_ completion: @escaping ([CityPlainObject]?) -> Void) {
         provider.rx.request(.cities(WeatherNetworkServiceImpl.cityIds))
                 .debug()
                 .filterSuccessfulStatusCodes()
                 .asObservable()
-                .map(to: [CityPlainObject].self, keyPath: "list")
+                .map([CityPlainObject].self, atKeyPath: "list")
                 .observeOn(MainScheduler.instance)
                 .subscribe(
                         onNext: { cities in
@@ -47,7 +48,7 @@ class WeatherNetworkServiceImpl: WeatherNetworkService {
                 .debug()
                 .filterSuccessfulStatusCodes()
                 .asObservable()
-                .map(to: [ForecastPlainObject].self, keyPath: "list")
+                .map([ForecastPlainObject].self, atKeyPath: "list")
                 .observeOn(MainScheduler.instance)
                 .subscribe(
                         onNext: { forecasts in

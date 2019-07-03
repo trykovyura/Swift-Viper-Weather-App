@@ -4,11 +4,8 @@
 //
 
 import Foundation
-import Mapper
 
-public struct CityPlainObject: Mappable, Entity {
-
-    typealias RealmEntityType = CityModelObject
+public struct CityPlainObject {
 
     let id: Int
     let name: String
@@ -20,26 +17,43 @@ public struct CityPlainObject: Mappable, Entity {
         self.weather = weather
     }
 
-    public init(map: Mapper) throws {
-        try id = map.from("id")
-        try name = map.from("name")
-        try weather = map.from("weather", transformation: extractWeatherName)
+}
+
+extension CityPlainObject: Codable {
+
+    enum CityPlainObjectKeys: String, CodingKey {
+        case id
+        case name
+        case weather
     }
+
+    public func encode(to encoder: Encoder) throws {
+
+        var container = encoder.container(keyedBy: CityPlainObjectKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(weather, forKey: .weather)
+    }
+
+    // Decodable protocol methods
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CityPlainObjectKeys.self)
+
+        id = try container.decode(Int.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        let weathers: [WeatherPlainObject] = try container.decode([WeatherPlainObject].self, forKey: .weather)
+        weather = weathers.first?.main ?? ""
+    }
+
+}
+
+extension CityPlainObject: Entity {
+
+    typealias RealmEntityType = CityModelObject
 
     var modelObject: CityModelObject {
         return CityModelObject(entity: self)
     }
-}
-
-private func extractWeatherName(object: Any?) throws -> String {
-    guard let weatherArray = object as? [Any] else {
-        throw MapperError.convertibleError(value: object, type: [Any].self)
-    }
-    guard let weatherDic = weatherArray[0] as? [String: Any] else {
-        throw MapperError.convertibleError(value: object, type: [String: Any].self)
-    }
-    guard let main = weatherDic["main"] as? String else {
-        throw MapperError.convertibleError(value: object, type: String.self)
-    }
-    return main
 }
