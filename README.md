@@ -20,7 +20,7 @@ in a simple weather app that lists current weather information at some locations
 ## Setup
 
 1. Download the source code or clone the repository.
-2. Run `pod install`.
+2. Run `bundle install && bundle exec pod install`.
 3. Get a free API key from [OpenWeatherMap](http://openweathermap.org).
 4. Open `OpenWeatherAPI.swift` and fill `apiKey = ""` with your own API key.
 
@@ -30,7 +30,7 @@ in a simple weather app that lists current weather information at some locations
 * Facades with RxSwift
 * RxRealm
 * ~~Acknowledgements~~
-* SwiftLint
+* ~~SwiftLint~~
 
 ## License
 

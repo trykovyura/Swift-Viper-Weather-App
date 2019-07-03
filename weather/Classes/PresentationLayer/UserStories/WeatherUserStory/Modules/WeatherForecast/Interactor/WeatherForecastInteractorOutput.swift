@@ -10,5 +10,5 @@ import Foundation
 
 protocol WeatherForecastInteractorOutput: class {
 
-    func didObtainForecast(_ forecast:[ForecastPlainObject])
+    func didObtainForecast(_ forecast: [ForecastPlainObject])
 }

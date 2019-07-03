@@ -13,7 +13,7 @@ class WeatherFeedInteractor: WeatherFeedInteractorInput, TimeoutServiceOutput {
     var timeoutService: TimeoutService!
     var weatherFacade: WeatherFacade!
 
-    //MARK : WeatherFeedInteractorInput
+    // MARK: - WeatherFeedInteractorInput
     func startTimer() {
         timeoutService.startTimer(self)
     }
@@ -34,7 +34,7 @@ class WeatherFeedInteractor: WeatherFeedInteractorInput, TimeoutServiceOutput {
         return weatherFacade.filterCities(searchString, cities)
     }
 
-    //MARK : TimeoutServiceOutput
+    // MARK: - TimeoutServiceOutput
     func didTriggerTimer() {
         output.didTriggerTimerOutput()
     }

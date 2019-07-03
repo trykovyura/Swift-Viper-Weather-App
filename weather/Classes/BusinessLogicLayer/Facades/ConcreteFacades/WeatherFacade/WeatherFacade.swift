@@ -7,9 +7,9 @@ import Foundation
 
 public protocol WeatherFacade {
 
-    func obtainCities(_ completion: @escaping ([CityPlainObject]?) -> ())
+    func obtainCities(_ completion: @escaping ([CityPlainObject]?) -> Void)
 
-    func obtainForecast(_ city: CityPlainObject, completion: @escaping ([ForecastPlainObject]?) -> ())
+    func obtainForecast(_ city: CityPlainObject, completion: @escaping ([ForecastPlainObject]?) -> Void)
 
     func filterCities(_ searchString: String, _ cities: [CityPlainObject]) -> [CityPlainObject]
 }
@@ -31,7 +31,7 @@ class WeatherFacadeImpl: WeatherFacade {
         self.weatherRepositoryService = weatherRepositoryService
     }
 
-    func obtainCities(_ completion: @escaping ([CityPlainObject]?) -> ()) {
+    func obtainCities(_ completion: @escaping ([CityPlainObject]?) -> Void) {
         let cities = self.weatherRepositoryService.queryCities()
         if !cities.isEmpty {
             DispatchQueue.main.async {
@@ -52,7 +52,7 @@ class WeatherFacadeImpl: WeatherFacade {
         }
     }
 
-    func obtainForecast(_ city: CityPlainObject, completion: @escaping ([ForecastPlainObject]?) -> ()) {
+    func obtainForecast(_ city: CityPlainObject, completion: @escaping ([ForecastPlainObject]?) -> Void) {
         weatherNetworkService.fetchForecast(city, completion: completion)
     }
 

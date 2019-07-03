@@ -18,13 +18,12 @@ class WeatherForecastViewController: UIViewController, WeatherForecastViewInput 
     var tableDirector: TableDirector!
 
     @IBOutlet var tableView: UITableView!
-    
+
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewIsReady()
     }
-
 
     // MARK: WeatherForecastViewInput
     func setupInitialState(_ city: CityPlainObject) {
@@ -36,7 +35,8 @@ class WeatherForecastViewController: UIViewController, WeatherForecastViewInput 
         tableDirector.clear()
         let section = TableSection()
         for item in items {
-            section.append(row: TableRow<WeatherForecastCell>(item: WeatherForecastCellObject(name: item.day, weather: item.name)))
+            section.append(row: TableRow<WeatherForecastCell>(item:
+            WeatherForecastCellObject(name: item.day, weather: item.name)))
         }
         tableDirector += section
         tableDirector.reload()

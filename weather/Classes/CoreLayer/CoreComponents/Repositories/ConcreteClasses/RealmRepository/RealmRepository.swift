@@ -9,40 +9,53 @@
 import Foundation
 import RealmSwift
 
+enum RealmRepositoryError: Error {
+    case castError
+}
+
 class RealmRepository<T>: Repository where T: RealmEntity, T: Object, T.EntityType: Entity {
-    
+
     typealias RealmEntityType = T
 
-    private let realm = try! Realm()
+    private let realm: Realm
+
+    init() throws {
+        self.realm = try Realm()
+    }
 
     func save(item: T.EntityType) throws {
         try realm.write {
-            realm.add(item.modelObject as! T)
+            guard let model = item.modelObject as? T else {
+                throw RealmRepositoryError.castError
+            }
+            realm.add(model)
         }
     }
 
     func save(items: [T.EntityType]) throws {
         try realm.write {
-            items.forEach {
-                realm.add($0.modelObject as! T, update: true)
-            }
+            let models = items.compactMap { $0.modelObject as? T }
+            realm.add(models, update: true)
         }
     }
 
-    func update(block: @escaping () -> ()) throws {
-        try realm.write() {
+    func update(block: @escaping () -> Void) throws {
+        try realm.write {
             block()
         }
     }
 
     func delete(item: T.EntityType) throws {
-        try realm.write() {
-            realm.delete(item.modelObject as! T)
+        try realm.write {
+            guard let model = item.modelObject as? T else {
+                throw RealmRepositoryError.castError
+            }
+            realm.delete(model)
         }
     }
 
     func deleteAll() throws {
-        try realm.write() {
+        try realm.write {
             realm.delete(realm.objects(T.self))
         }
     }
@@ -58,13 +71,13 @@ class RealmRepository<T>: Repository where T: RealmEntity, T: Object, T.EntityTy
             objects = objects.sorted(byKeyPath: sorted.key, ascending: sorted.ascending)
         }
 
-        return objects.flatMap {
+        return objects.compactMap {
             $0.plainObject
         }
     }
 
     func fetchAll() -> [T.EntityType] {
-        return realm.objects(T.self).flatMap {
+        return realm.objects(T.self).compactMap {
             $0.plainObject
         }
     }

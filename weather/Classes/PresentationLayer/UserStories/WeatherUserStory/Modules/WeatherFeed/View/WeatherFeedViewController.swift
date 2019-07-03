@@ -60,7 +60,7 @@ class WeatherFeedViewController: UIViewController, WeatherFeedViewInput, UISearc
             self?.output.didTapCity(options.item.city)
         }
         for item in items {
-            section.append(row: TableRow<WeatherFeedCell>(item: item, actions:[action]))
+            section.append(row: TableRow<WeatherFeedCell>(item: item, actions: [action]))
         }
         tableDirector += section
         tableDirector.reload()
