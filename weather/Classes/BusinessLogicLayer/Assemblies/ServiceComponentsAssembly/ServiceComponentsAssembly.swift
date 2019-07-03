@@ -13,22 +13,22 @@ class ServiceComponentsAssembly: Assembly {
             TimeoutServiceImpl()
         }.inObjectScope(.transient)
 
-        container.register(WeatherService.self) { r in
+        container.register(WeatherService.self) { _ in
             WeatherServiceImpl()
         }.inObjectScope(.transient)
 
-        container.register(WeatherNetworkService.self) { r in
+        container.register(WeatherNetworkService.self) { _ in
             WeatherNetworkServiceImpl()
         }.inObjectScope(.transient)
 
-        container.register(WeatherRepositoryService.self) { r in
+        container.register(WeatherRepositoryService.self) { _ in
             WeatherRepositoryServiceImpl()
         }.inObjectScope(.transient)
 
-        container.register(WeatherFacade.self) { r in
-            WeatherFacadeImpl(weatherService: r.resolve(WeatherService.self)!,
-                    weatherNetworkService: r.resolve(WeatherNetworkService.self)!,
-                    weatherRepositoryService: r.resolve(WeatherRepositoryService.self)!)
+        container.register(WeatherFacade.self) { res in
+            WeatherFacadeImpl(weatherService: res.resolve(WeatherService.self)!,
+                    weatherNetworkService: res.resolve(WeatherNetworkService.self)!,
+                    weatherRepositoryService: res.resolve(WeatherRepositoryService.self)!)
         }.inObjectScope(.transient)
 
     }

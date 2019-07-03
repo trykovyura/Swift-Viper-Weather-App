@@ -10,7 +10,7 @@ class WeatherFeedInitializer: NSObject {
     //Connect with object on storyboard
 
     @IBOutlet weak var weatherFeedViewController: WeatherFeedViewController!
-    
+
     override func awakeFromNib() {
 
         let configurator = WeatherFeedConfigurator()

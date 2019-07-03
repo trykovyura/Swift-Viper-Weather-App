@@ -7,10 +7,9 @@ import Foundation
 
 public protocol WeatherService {
 
-    func filterCities(_ searchString: String, _ cities:[CityPlainObject]) -> [CityPlainObject]
+    func filterCities(_ searchString: String, _ cities: [CityPlainObject]) -> [CityPlainObject]
 
 }
-
 
 class WeatherServiceImpl: WeatherService {
     func filterCities(_ searchString: String, _ cities: [CityPlainObject]) -> [CityPlainObject] {

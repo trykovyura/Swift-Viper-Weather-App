@@ -11,7 +11,7 @@ class WeatherForecastInteractor: WeatherForecastInteractorInput {
     weak var output: WeatherForecastInteractorOutput!
     var weatherFacade: WeatherFacade!
 
-    //MARK:WeatherForecastInteractorInput
+    // MARK: - WeatherForecastInteractorInput
 
     func obtainForecast(_ city: CityPlainObject) {
         weatherFacade.obtainForecast(city) { [weak self] forecast in

@@ -10,12 +10,11 @@ import RxSwift
 
 public protocol WeatherNetworkService {
 
-    func fetchCities(_ completion: @escaping ([CityPlainObject]?) -> ())
+    func fetchCities(_ completion: @escaping ([CityPlainObject]?) -> Void)
 
-    func fetchForecast(_ city: CityPlainObject, completion: @escaping ([ForecastPlainObject]?) -> ())
+    func fetchForecast(_ city: CityPlainObject, completion: @escaping ([ForecastPlainObject]?) -> Void)
 
 }
-
 
 class WeatherNetworkServiceImpl: WeatherNetworkService {
 
@@ -26,7 +25,7 @@ class WeatherNetworkServiceImpl: WeatherNetworkService {
 
     let disposeBag = DisposeBag()
 
-    func fetchCities(_ completion: @escaping ([CityPlainObject]?) -> ()) {
+    func fetchCities(_ completion: @escaping ([CityPlainObject]?) -> Void) {
         provider.rx.request(.cities(WeatherNetworkServiceImpl.cityIds))
                 .debug()
                 .filterSuccessfulStatusCodes()
@@ -38,12 +37,12 @@ class WeatherNetworkServiceImpl: WeatherNetworkService {
                             completion(cities)
                         },
                         onError: { error in
-                            print(":(")
+                            print(error.localizedDescription)
                         })
                 .disposed(by: disposeBag)
     }
 
-    func fetchForecast(_ city: CityPlainObject, completion: @escaping ([ForecastPlainObject]?) -> ()) {
+    func fetchForecast(_ city: CityPlainObject, completion: @escaping ([ForecastPlainObject]?) -> Void) {
         provider.rx.request(.forecast(city.id))
                 .debug()
                 .filterSuccessfulStatusCodes()
@@ -55,7 +54,7 @@ class WeatherNetworkServiceImpl: WeatherNetworkService {
                             completion(forecasts)
                         },
                         onError: { error in
-                            print(":(")
+                            print(error.localizedDescription)
                         })
                 .disposed(by: disposeBag)
     }

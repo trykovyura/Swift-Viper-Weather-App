@@ -25,7 +25,7 @@ protocol Repository: class {
     /*
      Update an item
      */
-    func update(block: @escaping () -> ()) throws
+    func update(block: @escaping () -> Void) throws
 
     /*
      Delete an item

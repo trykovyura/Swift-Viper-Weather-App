@@ -10,7 +10,7 @@ final class ApplicationAssembly {
 
     //Use default dependency
     class var assembler: Assembler {
-        return try! Assembler(assemblies: [
+        return Assembler([
             ServiceComponentsAssembly()
         ])
     }
@@ -19,7 +19,7 @@ final class ApplicationAssembly {
 
     //If you want use custom Assembler
     init(with assemblies: [Assembly]) {
-        assembler = try! Assembler(assemblies: assemblies)
+        assembler = Assembler(assemblies)
     }
 
 }

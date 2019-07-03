@@ -13,8 +13,8 @@ class WeatherFeedPresenter: WeatherFeedModuleInput, WeatherFeedViewOutput, Weath
     var router: WeatherFeedRouterInput!
     var cities: [CityPlainObject]!
 
-    // MARK:WeatherFeedViewOutput
-    
+    // MARK: - WeatherFeedViewOutput
+
     func viewIsReady() {
         view.setupInitialState()
         interactor.obtainCities()
@@ -34,7 +34,7 @@ class WeatherFeedPresenter: WeatherFeedModuleInput, WeatherFeedViewOutput, Weath
 
     func didTriggerSearchEvent(_ searchString: String) {
         var cities = self.cities
-        if (!searchString.isEmpty) {
+        if !searchString.isEmpty {
             cities = interactor.filterCities(searchString, cities!)
         }
         view.configureWithItems(items: buildItems(cities!))
@@ -44,7 +44,7 @@ class WeatherFeedPresenter: WeatherFeedModuleInput, WeatherFeedViewOutput, Weath
         router.openForecastModule(city)
     }
 
-    //MARK: WeatherFeedInteractorOutput
+    // MARK: - WeatherFeedInteractorOutput
 
     func didTriggerTimerOutput() {
         interactor.obtainCities()
@@ -55,12 +55,12 @@ class WeatherFeedPresenter: WeatherFeedModuleInput, WeatherFeedViewOutput, Weath
         view.configureWithItems(items: buildItems(cities))
     }
 
-    //MARK: Private Methods
-    
+    // MARK: - Private Methods
+
     func buildItems(_ cities: [CityPlainObject]) -> [WeatherFeedCellObject] {
         var myArray = [WeatherFeedCellObject]()
         cities.forEach { (city) in
-             myArray.append(WeatherFeedCellObject(id: city.id, name: city.name, weather: city.weather, city: city))
+            myArray.append(WeatherFeedCellObject(id: city.id, name: city.name, weather: city.weather, city: city))
         }
         return myArray
     }

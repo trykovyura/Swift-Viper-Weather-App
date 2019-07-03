@@ -9,7 +9,8 @@
 import Foundation
 import ViperMcFlurry
 
-class WeatherForecastPresenter: NSObject, WeatherForecastModuleInput, WeatherForecastViewOutput, WeatherForecastInteractorOutput {
+class WeatherForecastPresenter: NSObject, WeatherForecastModuleInput, WeatherForecastViewOutput,
+        WeatherForecastInteractorOutput {
 
     weak var view: WeatherForecastViewInput!
     var interactor: WeatherForecastInteractorInput!
@@ -18,13 +19,13 @@ class WeatherForecastPresenter: NSObject, WeatherForecastModuleInput, WeatherFor
 
     var city: CityPlainObject!
 
-    //MARK: WeatherForecastModuleInput
+    // MARK: - WeatherForecastModuleInput
 
     func configure(with city: CityPlainObject) {
         self.city = city
     }
 
-    //MARK: WeatherForecastViewOutput
+    // MARK: - WeatherForecastViewOutput
 
     func viewIsReady() {
         view.setupInitialState(city)
@@ -35,7 +36,7 @@ class WeatherForecastPresenter: NSObject, WeatherForecastModuleInput, WeatherFor
         interactor.obtainForecast(city)
     }
 
-    //MARK: WeatherForecastInteractorOutput
+    // MARK: - WeatherForecastInteractorOutput
 
     func didObtainForecast(_ forecast: [ForecastPlainObject]) {
         view.configureWithItems(forecast)

@@ -26,8 +26,7 @@ class TimeoutServiceImpl: TimeoutService {
 
     func startTimer(_ output: TimeoutServiceOutput?) {
         stopTimer()
-        timer = Timer.scheduledTimer(withTimeInterval: defaultTimeout, repeats: true) {
-            timer in
+        timer = Timer.scheduledTimer(withTimeInterval: defaultTimeout, repeats: true) { _ in
             output?.didTriggerTimer()
         }
     }

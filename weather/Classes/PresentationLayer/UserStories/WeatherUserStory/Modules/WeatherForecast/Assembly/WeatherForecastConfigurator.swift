@@ -16,7 +16,9 @@ class WeatherForecastConfigurator {
     }
 
     private func configure(viewController: WeatherForecastViewController) {
-        let r = ApplicationAssembly.assembler.resolver as! Container
+        guard let container = ApplicationAssembly.assembler.resolver as? Container else {
+            fatalError()
+        }
 
         let router = WeatherForecastRouter()
         router.transitionHandler = viewController
@@ -27,7 +29,7 @@ class WeatherForecastConfigurator {
 
         let interactor = WeatherForecastInteractor()
         interactor.output = presenter
-        interactor.weatherFacade = r.resolve(WeatherFacade.self)
+        interactor.weatherFacade = container.resolve(WeatherFacade.self)
 
         presenter.interactor = interactor
         viewController.output = presenter

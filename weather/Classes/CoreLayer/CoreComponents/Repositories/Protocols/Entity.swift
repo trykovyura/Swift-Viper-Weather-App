@@ -16,5 +16,4 @@ protocol RealmEntity {
     associatedtype EntityType
 
     var plainObject: EntityType { get }
-    
 }
