@@ -29,8 +29,8 @@ class WeatherFeedConfigurator {
 
         let interactor = WeatherFeedInteractor()
         interactor.output = presenter
-        interactor.timeoutService = container.resolve(TimeoutService.self)
-        interactor.weatherFacade = container.resolve(WeatherFacade.self)
+        interactor.timeoutService = container.resolve(TimeoutServiceType.self)
+        interactor.weatherFacade = container.resolve(WeatherFacadeType.self)
 
         presenter.interactor = interactor
         viewController.output = presenter
