@@ -18,7 +18,6 @@ target 'weather' do
 
   # Network
   pod 'Moya/RxSwift', '~>11.0.2'
-  pod 'Moya-ModelMapper/RxSwift', '~>7.0.2'
 
   # Storage
   pod 'RealmSwift', '~>3.7.1'
