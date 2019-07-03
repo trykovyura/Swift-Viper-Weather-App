@@ -5,35 +5,43 @@
 
 import Foundation
 import RealmSwift
+import RxSwift
 
-public protocol WeatherRepositoryService {
+public protocol WeatherRepositoryServiceType {
 
-    func queryCities() -> [CityPlainObject]
+    func cities() -> Observable<[CityPlainObject]>
 
-    func saveCities(_ cities: [CityPlainObject], completion: @escaping () -> Void)
+    func saveCities(_ cities: [CityPlainObject]) -> Observable<[CityPlainObject]>
 }
 
-class WeatherRepositoryServiceImpl: WeatherRepositoryService {
+class WeatherRepositoryService: WeatherRepositoryServiceType {
 
-    func queryCities() -> [CityPlainObject] {
-        do {
-            let repository = try RealmRepository<CityModelObject>()
-            return repository.fetchAll()
-        } catch let error {
-            print(error.localizedDescription)
-            return []
+    func cities() -> Observable<[CityPlainObject]> {
+        return Observable.create { observer -> Disposable in
+            do {
+                let repository = try RealmRepository<CityModelObject>()
+                let values = repository.fetchAll()
+                observer.onNext(values)
+                observer.onCompleted()
+            } catch let error {
+                observer.onError(error)
+            }
+            return Disposables.create()
         }
+
     }
 
-    func saveCities(_ cities: [CityPlainObject], completion: @escaping () -> Void) {
-        do {
-            let repository = try RealmRepository<CityModelObject>()
-            try repository.save(items: cities)
-            completion()
-        } catch let error {
-            print(error.localizedDescription)
-            completion()
+    func saveCities(_ cities: [CityPlainObject]) -> Observable<[CityPlainObject]> {
+        return Observable.create { observer -> Disposable in
+            do {
+                let repository = try RealmRepository<CityModelObject>()
+                try repository.save(items: cities)
+                observer.onNext(cities)
+                observer.onCompleted()
+            } catch let error {
+                observer.onError(error)
+            }
+            return Disposables.create()
         }
-
     }
 }

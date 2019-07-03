@@ -29,7 +29,7 @@ class WeatherForecastConfigurator {
 
         let interactor = WeatherForecastInteractor()
         interactor.output = presenter
-        interactor.weatherFacade = container.resolve(WeatherFacade.self)
+        interactor.weatherFacade = container.resolve(WeatherFacadeType.self)
 
         presenter.interactor = interactor
         viewController.output = presenter
