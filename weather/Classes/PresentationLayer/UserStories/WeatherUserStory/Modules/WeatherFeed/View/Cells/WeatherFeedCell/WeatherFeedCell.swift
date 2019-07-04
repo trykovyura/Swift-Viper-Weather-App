@@ -6,10 +6,9 @@
 //  Copyright © 2017 trykov. All rights reserved.
 //
 
-import Foundation
-import TableKit
+import UIKit
 
-class WeatherFeedCell: UITableViewCell, ConfigurableCell {
+class WeatherFeedCell: UITableViewCell {
 
     static var defaultHeight: CGFloat? {
         return 44

@@ -14,8 +14,7 @@ target 'weather' do
   pod 'SwiftLint', '~> 0.33.0'
 
   # UI
-  pod 'TableKit', '~>2.9.0'
-  pod "ESPullToRefresh", '~>2.9'
+  pod 'RxDataSources', '~> 4.0'
 
   # Network
   pod 'Moya/RxSwift', '~>14.0.0-alpha'

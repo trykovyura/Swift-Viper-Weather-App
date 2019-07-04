@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import TableKit
-import ESPullToRefresh
+import RxDataSources
+import RxSwift
+import RxCocoa
 
 class WeatherFeedViewController: UIViewController, WeatherFeedViewInput, UISearchBarDelegate {
     @IBOutlet var searchBar: UISearchBar!
@@ -16,7 +17,22 @@ class WeatherFeedViewController: UIViewController, WeatherFeedViewInput, UISearc
 
     var output: WeatherFeedViewOutput!
 
-    var tableDirector: TableDirector!
+    let dataSource = RxTableViewSectionedReloadDataSource<WeatherFeedSection>(
+            configureCell: { _, tableView, _, item in
+                let reuseIdentifier = String(describing: WeatherFeedCell.self)
+                var cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier)
+                if cell == nil {
+                    let nib = UINib(nibName: reuseIdentifier, bundle: nil)
+                    tableView.register(nib, forCellReuseIdentifier: reuseIdentifier)
+                    cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier)
+                }
+                if let currentCell = cell as? WeatherFeedCell {
+                    currentCell.configure(with: item)
+                }
+                return cell!
+            })
+
+    var disposeBag = DisposeBag()
 
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -41,12 +57,13 @@ class WeatherFeedViewController: UIViewController, WeatherFeedViewInput, UISearc
     }
 
     private func configureTableView() {
-        tableDirector = TableDirector(tableView: tableView)
-        self.tableView.es.addPullToRefresh {
-            [weak self] in
-            self?.output.didTriggerPullToRefresh()
-            self?.tableView.es.stopPullToRefresh(ignoreDate: false, ignoreFooter: false)
-        }
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+    }
+
+    @objc func refresh(_ refreshControl: UIRefreshControl) {
+        output.didTriggerPullToRefresh()
     }
 
     private func configureSearchBar() {
@@ -54,16 +71,22 @@ class WeatherFeedViewController: UIViewController, WeatherFeedViewInput, UISearc
     }
 
     func configureWithItems(items: [WeatherFeedCellObject]) {
-        tableDirector.clear()
-        let section = TableSection()
-        let action = TableRowAction<WeatherFeedCell>(.click) { [weak self] (options) in
-            self?.output.didTapCity(options.item.city)
-        }
-        for item in items {
-            section.append(row: TableRow<WeatherFeedCell>(item: item, actions: [action]))
-        }
-        tableDirector += section
-        tableDirector.reload()
+        disposeBag = DisposeBag() //Cancel item select subscribe
+        tableView.dataSource = nil
+        tableView.delegate = nil
+        tableView?.refreshControl?.endRefreshing()
+        Observable.just([WeatherFeedSection(items: items)])
+                .bind(to: tableView.rx.items(dataSource: dataSource))
+                .disposed(by: disposeBag)
+        tableView.rx.modelSelected(WeatherFeedCellObject.self)
+                .subscribe(onNext: { [weak self] item in
+                    self?.output.didTapCity(item.city)
+                    if let index = self?.tableView.indexPathForSelectedRow {
+                        self?.tableView.deselectRow(at: index, animated: true)
+                    }
+                })
+                .disposed(by: disposeBag)
+
     }
 
     // MARK: UISearchBarDelegate
