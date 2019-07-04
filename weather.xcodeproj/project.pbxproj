@@ -23,6 +23,8 @@
 		721E04F289C3B95B934E3CAE /* WeatherForecastInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7DD3E92B094C929072F78E /* WeatherForecastInteractor.swift */; };
 		73F8285D15A7912C5D7E17E5 /* WeatherFeedViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6FE83AAB51E37F3D44E7D0 /* WeatherFeedViewInput.swift */; };
 		7FDB2C1267E191B8FCD78F22 /* WeatherPlainObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB2FB3F34A0AD6256ADFF9 /* WeatherPlainObject.swift */; };
+		7FDB2D6E8FE8617CA157A871 /* WeatherFeedSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB277D7AAD4E02CEFCD77E /* WeatherFeedSection.swift */; };
+		7FDB2F575FCA3D9661E8C709 /* ForecastSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB28EFAC43B7AEDB80948F /* ForecastSection.swift */; };
 		82522C2564E4DD1F303EB089 /* WeatherFeedRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D52C104DA56AE0744346B42 /* WeatherFeedRouter.swift */; };
 		8E060D8B4A314320BD0A42AF /* WeatherFeedInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1BC05C4FBB6B9CDBB44E87 /* WeatherFeedInteractorOutput.swift */; };
 		934D2098E7C16FC5134D6BED /* WeatherForecastViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB825150FD6BE9248B404D1F /* WeatherForecastViewInput.swift */; };
@@ -86,6 +88,8 @@
 		7700D442F5F5070EBEB44E55 /* WeatherFeedRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeatherFeedRouterInput.swift; sourceTree = "<group>"; };
 		7721123B1EBE0ADC5A0A637F /* WeatherForecastInteractorInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeatherForecastInteractorInput.swift; sourceTree = "<group>"; };
 		7B1AC75AA61FCB71D57A2FF6 /* WeatherFeedModuleInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeatherFeedModuleInput.swift; sourceTree = "<group>"; };
+		7FDB277D7AAD4E02CEFCD77E /* WeatherFeedSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherFeedSection.swift; sourceTree = "<group>"; };
+		7FDB28EFAC43B7AEDB80948F /* ForecastSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastSection.swift; sourceTree = "<group>"; };
 		7FDB2FB3F34A0AD6256ADFF9 /* WeatherPlainObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherPlainObject.swift; sourceTree = "<group>"; };
 		8065603C115123F73B4DDA2F /* WeatherForecastInteractorOutput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeatherForecastInteractorOutput.swift; sourceTree = "<group>"; };
 		8444C77CFF85DBB41E85B222 /* WeatherForecastRouterInput.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeatherForecastRouterInput.swift; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 				F9E88637CC2D9767EC28E79E /* WeatherFeedViewController.swift */,
 				B18B3707C183A08C68C54EB2 /* CellObjects */,
 				B18B36238702F85A56C9BD23 /* Cells */,
+				7FDB25AA3F6BB2F2BF8358DB /* Sections */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -233,6 +238,22 @@
 				54DB61EA99AD01655DA03B1E /* Pods_weather.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7FDB25AA3F6BB2F2BF8358DB /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				7FDB277D7AAD4E02CEFCD77E /* WeatherFeedSection.swift */,
+			);
+			path = Sections;
+			sourceTree = "<group>";
+		};
+		7FDB2B37EE719575B2ACCE4F /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				7FDB28EFAC43B7AEDB80948F /* ForecastSection.swift */,
+			);
+			path = Sections;
 			sourceTree = "<group>";
 		};
 		95618DE50B6CEB5895B65CBB /* WeatherFeed */ = {
@@ -633,6 +654,7 @@
 				4459106898A47F01F83A9407 /* WeatherForecastViewController.swift */,
 				B18B31CDEE1887AC0F90E5BA /* Cells */,
 				B18B37FF9C75F084766192A1 /* CellObjects */,
+				7FDB2B37EE719575B2ACCE4F /* Sections */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -700,6 +722,7 @@
 					290F22BF1F4F3FA50095859C = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 7ZU2JEECEY;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -784,27 +807,31 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-weather/Pods-weather-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/ESPullToRefresh/ESPullToRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
-				"${BUILT_PRODUCTS_DIR}/TableKit/TableKit.framework",
 				"${BUILT_PRODUCTS_DIR}/ViperMcFlurry/ViperMcFlurry.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESPullToRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TableKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViperMcFlurry.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -866,6 +893,8 @@
 				B18B3A4C3F975A5691CD82AC /* WeatherFacade.swift in Sources */,
 				B18B339FDEA916813226BE35 /* WeatherForecastModuleOutput.swift in Sources */,
 				7FDB2C1267E191B8FCD78F22 /* WeatherPlainObject.swift in Sources */,
+				7FDB2F575FCA3D9661E8C709 /* ForecastSection.swift in Sources */,
+				7FDB2D6E8FE8617CA157A871 /* WeatherFeedSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -995,7 +1024,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.trykov.weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1010,7 +1039,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.trykov.weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
