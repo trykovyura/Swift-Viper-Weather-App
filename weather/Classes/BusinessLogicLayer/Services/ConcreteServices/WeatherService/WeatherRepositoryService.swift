@@ -5,30 +5,29 @@
 
 import Foundation
 import RealmSwift
+import RxSwift
 
-public protocol WeatherRepositoryService {
+public protocol WeatherRepositoryServiceType {
 
-    func queryCities() -> [CityPlainObject]
+    func cities() -> Observable<[CityPlainObject]>
 
-    func saveCities(_ cities: [CityPlainObject], completion: @escaping () -> Void)
+    func saveCities(_ cities: [CityPlainObject]) -> Observable<[CityPlainObject]>
 }
 
-class WeatherRepositoryServiceImpl: WeatherRepositoryService {
+class WeatherRepositoryService: WeatherRepositoryServiceType {
 
-    func queryCities() -> [CityPlainObject] {
-        let repository = RealmRepository<CityModelObject>()
+    func cities() -> Observable<[CityPlainObject]> {
+        guard let repository = try? RealmRepository<CityModelObject>() else {
+            return Observable.error(RealmRepositoryError.createError)
+        }
         return repository.fetchAll()
     }
 
-    func saveCities(_ cities: [CityPlainObject], completion: @escaping () -> Void) {
-        do {
-            let repository = RealmRepository<CityModelObject>()
-            try repository.save(items: cities)
-            completion()
-        } catch let error {
-            print(error.localizedDescription)
-            completion()
+    func saveCities(_ cities: [CityPlainObject]) -> Observable<[CityPlainObject]> {
+        guard let repository = try? RealmRepository<CityModelObject>() else {
+            return Observable.error(RealmRepositoryError.createError)
         }
-
+        return repository.save(items: cities)
+                .map { cities }
     }
 }

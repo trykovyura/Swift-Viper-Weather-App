@@ -6,7 +6,7 @@
 //  Copyright © 2017 trykov. All rights reserved.
 //
 
-protocol WeatherForecastViewOutput:PullToRefreshProtocol {
+protocol WeatherForecastViewOutput: PullToRefreshProtocol {
 
     /**
         @author trykov

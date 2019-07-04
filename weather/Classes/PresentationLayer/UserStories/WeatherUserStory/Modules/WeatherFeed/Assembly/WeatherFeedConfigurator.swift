@@ -16,7 +16,9 @@ class WeatherFeedConfigurator {
     }
 
     private func configure(viewController: WeatherFeedViewController) {
-        let r = ApplicationAssembly.assembler.resolver as! Container
+        guard let container = ApplicationAssembly.assembler.resolver as? Container else {
+            fatalError()
+        }
 
         let router = WeatherFeedRouter()
         router.transitionHandler = viewController
@@ -27,8 +29,8 @@ class WeatherFeedConfigurator {
 
         let interactor = WeatherFeedInteractor()
         interactor.output = presenter
-        interactor.timeoutService = r.resolve(TimeoutService.self)
-        interactor.weatherFacade = r.resolve(WeatherFacade.self)
+        interactor.timeoutService = container.resolve(TimeoutServiceType.self)
+        interactor.weatherFacade = container.resolve(WeatherFacadeType.self)
 
         presenter.interactor = interactor
         viewController.output = presenter

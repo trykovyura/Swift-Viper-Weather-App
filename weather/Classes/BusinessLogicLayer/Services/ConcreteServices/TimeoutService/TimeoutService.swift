@@ -5,7 +5,7 @@
 
 import Foundation
 
-public protocol TimeoutService {
+public protocol TimeoutServiceType {
 
     func startTimer(_ output: TimeoutServiceOutput?)
 
@@ -18,7 +18,7 @@ public protocol TimeoutServiceOutput {
 
 }
 
-class TimeoutServiceImpl: TimeoutService {
+class TimeoutService: TimeoutServiceType {
 
     let defaultTimeout = 30.0
 
@@ -26,8 +26,7 @@ class TimeoutServiceImpl: TimeoutService {
 
     func startTimer(_ output: TimeoutServiceOutput?) {
         stopTimer()
-        timer = Timer.scheduledTimer(withTimeInterval: defaultTimeout, repeats: true) {
-            timer in
+        timer = Timer.scheduledTimer(withTimeInterval: defaultTimeout, repeats: true) { _ in
             output?.didTriggerTimer()
         }
     }

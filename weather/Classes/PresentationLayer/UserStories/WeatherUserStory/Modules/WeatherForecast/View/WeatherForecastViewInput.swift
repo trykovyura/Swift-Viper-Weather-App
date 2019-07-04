@@ -15,5 +15,5 @@ protocol WeatherForecastViewInput: class {
 
     func setupInitialState(_ city: CityPlainObject)
 
-    func configureWithItems(_ items:[ForecastPlainObject])
+    func configureWithItems(_ items: [ForecastPlainObject])
 }

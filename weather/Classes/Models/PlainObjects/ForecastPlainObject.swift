@@ -4,29 +4,35 @@
 //
 
 import Foundation
-import Mapper
 
-public struct ForecastPlainObject: Mappable {
+public struct ForecastPlainObject {
     let name: String
     let time: Int
     let day: String
-
-    public init(map: Mapper) throws {
-        try name = map.from("dt_txt")
-        try time = map.from("dt")
-        try day = map.from("weather", transformation: extractWeatherName)
-    }
 }
 
-private func extractWeatherName(object: Any?) throws -> String {
-    guard let weatherArray = object as? [Any] else {
-        throw MapperError.convertibleError(value: object, type: [Any].self)
+extension ForecastPlainObject: Codable {
+
+    enum ForecastPlainObjectKeys: String, CodingKey {
+        case name = "dt_txt"
+        case time = "dt"
+        case weather
     }
-    guard let weatherDic = weatherArray[0] as? [String: Any] else {
-        throw MapperError.convertibleError(value: object, type: [String: Any].self)
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: ForecastPlainObjectKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(time, forKey: .time)
+        try container.encode(day, forKey: .weather)
     }
-    guard let main = weatherDic["main"] as? String else {
-        throw MapperError.convertibleError(value: object, type: String.self)
+
+    // Decodable protocol methods
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: ForecastPlainObjectKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        time = try container.decode(Int.self, forKey: .time)
+        let weathers: [WeatherPlainObject] = try container.decode([WeatherPlainObject].self, forKey: .weather)
+        day = weathers.first?.main ?? ""
     }
-    return main
 }

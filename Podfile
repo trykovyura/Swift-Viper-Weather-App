@@ -1,26 +1,26 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+ platform :ios, '10.2'
 
 target 'weather' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
+  inhibit_all_warnings!
 
   # Pods for weather
 
   # Utils
-  pod 'Swinject', '~>2.4.0'
+  pod 'Swinject', '~>2.6.2'
   pod 'ViperMcFlurry', '~>1.5.2'
+  pod 'SwiftLint', '~> 0.33.0'
 
   # UI
-  pod 'TableKit', '~>2.6.0'
-  pod "ESPullToRefresh", '~>2.7'
+  pod 'RxDataSources', '~> 4.0'
 
   # Network
-  pod 'Moya/RxSwift', '~>11.0.2'
-  pod 'Moya-ModelMapper/RxSwift', '~>7.0.2'
+  pod 'Moya/RxSwift', '~>14.0.0-alpha'
 
   # Storage
-  pod 'RealmSwift', '~>3.3.2'
+  pod 'RealmSwift', '~>3.17.0'
 
 end
 

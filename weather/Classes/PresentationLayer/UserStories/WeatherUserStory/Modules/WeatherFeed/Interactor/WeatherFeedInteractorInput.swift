@@ -12,7 +12,7 @@ protocol WeatherFeedInteractorInput {
 
     func obtainCities()
 
-    func filterCities(_ searchString: String, _ cities:[CityPlainObject]) -> [CityPlainObject]
+    func filterCities(_ searchString: String, _ cities: [CityPlainObject]) -> [CityPlainObject]
 
     func startTimer()
 

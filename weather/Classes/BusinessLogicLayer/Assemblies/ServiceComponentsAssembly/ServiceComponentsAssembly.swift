@@ -9,26 +9,26 @@ import Swinject
 class ServiceComponentsAssembly: Assembly {
 
     func assemble(container: Container) {
-        container.register(TimeoutService.self) { _ in
-            TimeoutServiceImpl()
+        container.register(TimeoutServiceType.self) { _ in
+            TimeoutService()
         }.inObjectScope(.transient)
 
-        container.register(WeatherService.self) { r in
-            WeatherServiceImpl()
+        container.register(WeatherServiceType.self) { _ in
+            WeatherService()
         }.inObjectScope(.transient)
 
-        container.register(WeatherNetworkService.self) { r in
-            WeatherNetworkServiceImpl()
+        container.register(WeatherNetworkServiceType.self) { _ in
+            WeatherNetworkService()
         }.inObjectScope(.transient)
 
-        container.register(WeatherRepositoryService.self) { r in
-            WeatherRepositoryServiceImpl()
+        container.register(WeatherRepositoryServiceType.self) { _ in
+            WeatherRepositoryService()
         }.inObjectScope(.transient)
 
-        container.register(WeatherFacade.self) { r in
-            WeatherFacadeImpl(weatherService: r.resolve(WeatherService.self)!,
-                    weatherNetworkService: r.resolve(WeatherNetworkService.self)!,
-                    weatherRepositoryService: r.resolve(WeatherRepositoryService.self)!)
+        container.register(WeatherFacadeType.self) { res in
+            WeatherFacade(weatherService: res.resolve(WeatherServiceType.self)!,
+                    weatherNetworkService: res.resolve(WeatherNetworkServiceType.self)!,
+                    weatherRepositoryService: res.resolve(WeatherRepositoryServiceType.self)!)
         }.inObjectScope(.transient)
 
     }

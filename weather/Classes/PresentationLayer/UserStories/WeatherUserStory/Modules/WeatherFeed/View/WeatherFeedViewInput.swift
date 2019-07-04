@@ -15,5 +15,5 @@ protocol WeatherFeedViewInput: class {
 
     func setupInitialState()
 
-    func configureWithItems(items:[WeatherFeedCellObject]);
+    func configureWithItems(items: [WeatherFeedCellObject])
 }

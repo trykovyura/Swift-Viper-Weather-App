@@ -4,56 +4,48 @@
 //
 
 import Foundation
+import RxSwift
 
-public protocol WeatherFacade {
+public protocol WeatherFacadeType {
 
-    func obtainCities(_ completion: @escaping ([CityPlainObject]?) -> ())
+    func cities() -> Observable<[CityPlainObject]>
 
-    func obtainForecast(_ city: CityPlainObject, completion: @escaping ([ForecastPlainObject]?) -> ())
+    func forecasts(_ city: CityPlainObject) -> Observable<[ForecastPlainObject]>
 
     func filterCities(_ searchString: String, _ cities: [CityPlainObject]) -> [CityPlainObject]
 }
 
-class WeatherFacadeImpl: WeatherFacade {
+class WeatherFacade: WeatherFacadeType {
 
-    private let weatherService: WeatherService
-    private let weatherNetworkService: WeatherNetworkService
-    private let weatherRepositoryService: WeatherRepositoryService
+    private let weatherService: WeatherServiceType
+    private let weatherNetworkService: WeatherNetworkServiceType
+    private let weatherRepositoryService: WeatherRepositoryServiceType
 
     // MARK: - Init
 
-    init(weatherService: WeatherService,
-         weatherNetworkService: WeatherNetworkService,
-         weatherRepositoryService: WeatherRepositoryService) {
-
+    init(weatherService: WeatherServiceType,
+         weatherNetworkService: WeatherNetworkServiceType,
+         weatherRepositoryService: WeatherRepositoryServiceType) {
         self.weatherService = weatherService
         self.weatherNetworkService = weatherNetworkService
         self.weatherRepositoryService = weatherRepositoryService
     }
 
-    func obtainCities(_ completion: @escaping ([CityPlainObject]?) -> ()) {
-        let cities = self.weatherRepositoryService.queryCities()
-        if !cities.isEmpty {
-            DispatchQueue.main.async {
-                completion(cities)
-            }
-        } else {
-            weatherNetworkService.fetchCities { [weak self] cities in
-                if let cities = cities {
-                    self?.weatherRepositoryService.saveCities(cities) {
-                        if let cities = self?.weatherRepositoryService.queryCities() {
-                            DispatchQueue.main.async {
-                                completion(cities)
-                            }
-                        }
+    func cities() -> Observable<[CityPlainObject]> {
+        let networkCities = weatherNetworkService.cities()
+                .flatMap(weatherRepositoryService.saveCities)
+
+        return weatherRepositoryService.cities()
+                .flatMap { cities -> Observable<[CityPlainObject]> in
+                    guard !cities.isEmpty else {
+                        return networkCities
                     }
+                    return Observable.just(cities)
                 }
-            }
-        }
     }
 
-    func obtainForecast(_ city: CityPlainObject, completion: @escaping ([ForecastPlainObject]?) -> ()) {
-        weatherNetworkService.fetchForecast(city, completion: completion)
+    func forecasts(_ city: CityPlainObject) -> Observable<[ForecastPlainObject]> {
+        return weatherNetworkService.forecasts(city)
     }
 
     func filterCities(_ searchString: String, _ cities: [CityPlainObject]) -> [CityPlainObject] {

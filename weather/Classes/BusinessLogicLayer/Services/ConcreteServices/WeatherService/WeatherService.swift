@@ -5,14 +5,13 @@
 
 import Foundation
 
-public protocol WeatherService {
+public protocol WeatherServiceType {
 
-    func filterCities(_ searchString: String, _ cities:[CityPlainObject]) -> [CityPlainObject]
+    func filterCities(_ searchString: String, _ cities: [CityPlainObject]) -> [CityPlainObject]
 
 }
 
-
-class WeatherServiceImpl: WeatherService {
+class WeatherService: WeatherServiceType {
     func filterCities(_ searchString: String, _ cities: [CityPlainObject]) -> [CityPlainObject] {
         return cities.filter({ (city: CityPlainObject) -> Bool in
             return city.name.lowercased().range(of: searchString.lowercased()) != nil
