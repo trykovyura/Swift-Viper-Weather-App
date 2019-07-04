@@ -4,23 +4,24 @@
 target 'weather' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
+  inhibit_all_warnings!
 
   # Pods for weather
 
   # Utils
-  pod 'Swinject', '~>2.4.0'
+  pod 'Swinject', '~>2.6.2'
   pod 'ViperMcFlurry', '~>1.5.2'
   pod 'SwiftLint', '~> 0.33.0'
 
   # UI
-  pod 'TableKit', '~>2.6.0'
-  pod "ESPullToRefresh", '~>2.7.0'
+  pod 'TableKit', '~>2.9.0'
+  pod "ESPullToRefresh", '~>2.9'
 
   # Network
-  pod 'Moya/RxSwift', '~>11.0.2'
+  pod 'Moya/RxSwift', '~>14.0.0-alpha'
 
   # Storage
-  pod 'RealmSwift', '~>3.7.1'
+  pod 'RealmSwift', '~>3.17.0'
 
 end
 
