@@ -8,9 +8,11 @@
 
 import Foundation
 import RealmSwift
+import RxSwift
 
 enum RealmRepositoryError: Error {
     case castError
+    case createError
 }
 
 class RealmRepository<T>: Repository where T: RealmEntity, T: Object, T.EntityType: Entity {
@@ -23,19 +25,39 @@ class RealmRepository<T>: Repository where T: RealmEntity, T: Object, T.EntityTy
         self.realm = try Realm()
     }
 
-    func save(item: T.EntityType) throws {
-        try realm.write {
-            guard let model = item.modelObject as? T else {
-                throw RealmRepositoryError.castError
+    func save(item: T.EntityType) -> Observable<Void> {
+        return Observable.create { [realm] observer -> Disposable in
+            do {
+                try realm.write {
+                    guard let model = item.modelObject as? T else {
+                        observer.onError(RealmRepositoryError.castError)
+                        return
+                    }
+                    realm.add(model)
+                    observer.onNext(())
+                    observer.onCompleted()
+                }
+            } catch let error {
+                observer.onError(error)
             }
-            realm.add(model)
+            return Disposables.create()
         }
+
     }
 
-    func save(items: [T.EntityType]) throws {
-        try realm.write {
-            let models = items.compactMap { $0.modelObject as? T }
-            realm.add(models, update: true)
+    func save(items: [T.EntityType]) -> Observable<Void> {
+        return Observable.create { [realm] observer -> Disposable in
+            do {
+                try realm.write {
+                    let models = items.compactMap { $0.modelObject as? T }
+                    realm.add(models, update: true)
+                    observer.onNext(())
+                    observer.onCompleted()
+                }
+            } catch let error {
+                observer.onError(error)
+            }
+            return Disposables.create()
         }
     }
 
@@ -45,40 +67,71 @@ class RealmRepository<T>: Repository where T: RealmEntity, T: Object, T.EntityTy
         }
     }
 
-    func delete(item: T.EntityType) throws {
-        try realm.write {
-            guard let model = item.modelObject as? T else {
-                throw RealmRepositoryError.castError
+    func delete(item: T.EntityType) -> Observable<Void> {
+        return Observable.create { [realm] observer -> Disposable in
+            do {
+                try realm.write {
+                    guard let model = item.modelObject as? T else {
+                        observer.onError(RealmRepositoryError.castError)
+                        return
+                    }
+                    realm.delete(model)
+                    observer.onNext(())
+                    observer.onCompleted()
+                }
+            } catch let error {
+                observer.onError(error)
             }
-            realm.delete(model)
+            return Disposables.create()
+        }
+
+    }
+
+    func deleteAll() -> Observable<Void> {
+        return Observable.create { [realm] observer -> Disposable in
+            do {
+                try realm.write {
+                    realm.delete(realm.objects(T.self))
+                    observer.onNext(())
+                    observer.onCompleted()
+                }
+            } catch let error {
+                observer.onError(error)
+            }
+            return Disposables.create()
+        }
+
+    }
+
+    func fetch(predicate: NSPredicate?, sorted: Sorted?) -> Observable<[T.EntityType]> {
+        return Observable.create { [realm] observer -> Disposable in
+            var objects = realm.objects(T.self)
+
+            if let predicate = predicate {
+                objects = objects.filter(predicate)
+            }
+
+            if let sorted = sorted {
+                objects = objects.sorted(byKeyPath: sorted.key, ascending: sorted.ascending)
+            }
+
+            let models: [T.EntityType] = objects.compactMap {
+                $0.plainObject
+            }
+            observer.onNext(models)
+            observer.onCompleted()
+            return Disposables.create()
         }
     }
 
-    func deleteAll() throws {
-        try realm.write {
-            realm.delete(realm.objects(T.self))
-        }
-    }
-
-    func fetch(predicate: NSPredicate?, sorted: Sorted?) -> [T.EntityType] {
-        var objects = realm.objects(T.self)
-
-        if let predicate = predicate {
-            objects = objects.filter(predicate)
-        }
-
-        if let sorted = sorted {
-            objects = objects.sorted(byKeyPath: sorted.key, ascending: sorted.ascending)
-        }
-
-        return objects.compactMap {
-            $0.plainObject
-        }
-    }
-
-    func fetchAll() -> [T.EntityType] {
-        return realm.objects(T.self).compactMap {
-            $0.plainObject
+    func fetchAll() -> Observable<[T.EntityType]> {
+        return Observable.create { [realm] observer -> Disposable in
+            let results: [T.EntityType] = realm.objects(T.self).compactMap {
+                $0.plainObject
+            }
+            observer.onNext(results)
+            observer.onCompleted()
+            return Disposables.create()
         }
     }
 }
