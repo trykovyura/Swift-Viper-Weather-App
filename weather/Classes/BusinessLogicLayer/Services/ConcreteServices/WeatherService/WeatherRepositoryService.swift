@@ -17,31 +17,17 @@ public protocol WeatherRepositoryServiceType {
 class WeatherRepositoryService: WeatherRepositoryServiceType {
 
     func cities() -> Observable<[CityPlainObject]> {
-        return Observable.create { observer -> Disposable in
-            do {
-                let repository = try RealmRepository<CityModelObject>()
-                let values = repository.fetchAll()
-                observer.onNext(values)
-                observer.onCompleted()
-            } catch let error {
-                observer.onError(error)
-            }
-            return Disposables.create()
+        guard let repository = try? RealmRepository<CityModelObject>() else {
+            return Observable.error(RealmRepositoryError.createError)
         }
-
+        return repository.fetchAll()
     }
 
     func saveCities(_ cities: [CityPlainObject]) -> Observable<[CityPlainObject]> {
-        return Observable.create { observer -> Disposable in
-            do {
-                let repository = try RealmRepository<CityModelObject>()
-                try repository.save(items: cities)
-                observer.onNext(cities)
-                observer.onCompleted()
-            } catch let error {
-                observer.onError(error)
-            }
-            return Disposables.create()
+        guard let repository = try? RealmRepository<CityModelObject>() else {
+            return Observable.error(RealmRepositoryError.createError)
         }
+        return repository.save(items: cities)
+                .map { cities }
     }
 }

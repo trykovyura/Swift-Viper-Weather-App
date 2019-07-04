@@ -28,7 +28,7 @@ in a simple weather app that lists current weather information at some locations
 * ~~Swift 4~~
 * ~~ViperMcFlurry or LightRoute v2~~
 * ~~Facades with RxSwift~~
-* RxRealm
+* ~~RxRealm~~
 * ~~Acknowledgements~~
 * ~~SwiftLint~~
 
